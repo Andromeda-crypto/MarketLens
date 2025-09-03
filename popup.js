@@ -1,6 +1,6 @@
 // popup.js
+//import API_KEY from './config.js';
 
-import API_KEY from './config.js';
 
 document.addEventListener("DOMContentLoaded", async () => {
     const symbolEl = document.getElementById("stock-symbol");
@@ -93,4 +93,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         priceEl.textContent = "--";
         changeEl.textContent = "--";
     }
+
+    console.log("API key used: ", API_KEY)
 });
