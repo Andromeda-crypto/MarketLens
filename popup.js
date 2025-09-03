@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const changeEl = document.getElementById("change");
     const peRatioEl = document.getElementById("pe-ratio");
     
-    const copyBtn = document.getElementById("coopy-btn");
+    const copyBtn = document.getElementById("copy-btn");
     const exportBtn = document.getElementById("export-btn");
 
     // mock data for demonstration
@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function updateUI(data) {
         symbolEl.textContent = data.symbol;
-        priceEl.textContent = '$${data.price}';
+        priceEl.textContent = `$${data.price}`;
         marketcapEl.textContent = data.marketCap;
         peRatioEl.textContent = data.peRatio;
 
@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // copy to clipboard functionality
 
     function copyData(data) { 
-        const text = 'Symbol: ${data.symbol}\nPrice: $${data.price}\nMarket Cap: ${data.marketCap}\nP/E Ratio: ${data.peRatio}\nChange: ${data.change > 0 ? "+" : ""}${data.change}%';
+        const text = `Symbol: ${data.symbol}\nPrice: $${data.price}\nMarket Cap: ${data.marketCap}\nP/E Ratio: ${data.peRatio}\nChange: ${data.change > 0 ? "+" : ""}${data.change}%`;
         navigator.clipboard.writeText(text)
             .then(() => alert("Copied to Clipboard!"))
             .catch(err => console.error("Copy failed", err));
@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const a = document.createElement("a");
         a.href = url;
-        a.download = '${data.symbol}_data.csv' ;
+        a.download = `${data.symbol}_data.csv` ;
         a.click();
 
         URL.revokeObjectURL(url) ;
