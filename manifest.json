@@ -1,0 +1,18 @@
+{
+    "manifest_version": 3,
+    "name": "MarketLens",
+    "description": "A clean and simple stock insight tool. Get real-time quotes and export data instantly.",
+    "version": "1.0",
+    "action": {
+        "default_popup": "popup.html"
+        
+    },
+    "permissions": 
+    [
+        "storage"
+    ],
+    "host_permissions":
+    [
+        "https://finnhub.io/*"
+    ]
+}
