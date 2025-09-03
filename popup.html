@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MarketLens</title>
+    <link rel="stylesheet" href ="popup.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Marketlens</h1>
+            <p id="stock-symbol">AAPL</p>
+        </header>
+
+        <section class="metrics">
+            <div class="metric">
+                <span class="label">Price: </span>
+                <span class="value" id="price">--</span>
+            </div>
+
+        <div class="metric">
+            <span class="label">Market Cap:</span>
+            <span class="value" id="market-cap">--</span>
+        </div>
+
+        <div class="metric">
+            <span class="label">P/E ratio:</span>
+            <span class="value" id="pe-ratio">--</span>
+        </div>
+
+        <div class="metric">
+            <span class="label">Change</span>
+            <span class="value" id="change">--</span>
+        </div>
+        </section>
+
+        <section class="actions">
+            <button id="copy-btn">Copy Data</button>
+            <button id="export-btn">Export CSV</button>
+        </section>
+
+        <footer>
+            <p>v0.1 – by Om</p>
+        </footer>
+    </div>
+
+</body>
+
+</html>
