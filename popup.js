@@ -1,10 +1,5 @@
 // popup.js
 
-
-
-import API_KEY from './config.js';
-
-
 document.addEventListener("DOMContentLoaded", async () => {
     const symbolEl = document.getElementById("stock-symbol");
     const priceEl = document.getElementById("price");
