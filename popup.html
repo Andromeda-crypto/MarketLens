@@ -1,6 +1,4 @@
 <!-- popup.html-->
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,11 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MarketLens</title>
     <link rel="stylesheet" href="popup.css">
-    
-
 </head>
-
-
 
 <body>
     <div class="container">
@@ -23,14 +17,27 @@
         </header>
     
         <section class="ticker-input">
-            <input type="text" id="ticker-input" placeholder="Enter symbol(e.g AAPL)">
+            <input type="text" id="ticker-input" placeholder="Enter symbol (e.g. AAPL)">
             <button id="load-btn">Load</button>
-                </section>
+        </section>
 
         
-        <div class="headline-metric">
-            <span id="headline-price">--</span>
-        </div>
+        <section id="stock-card" class="stock-card">
+            <div class="stock-header">
+                <img id="company-logo" src="" alt="Company Logo" class="stock-logo">
+                <div class="stock-info">
+                    <h2 id="stock-ticker">AAPL</h2>
+                    <p id="company-name">Apple Inc.</p>
+                </div>
+            </div>
+
+            <div class="stock-details">
+                <p class="price">
+                    <span id="stock-price">$215.67</span>
+                </p>
+                <p class="change" id="stock-change">+1.2%</p>
+            </div>
+        </section>
 
         <section class="metrics">
             <div class="metric">
@@ -64,9 +71,7 @@
         </footer>
     </div>
 
-
     <script src="config.js"></script>
     <script src="popup.js"></script>
 </body>
-
 </html>

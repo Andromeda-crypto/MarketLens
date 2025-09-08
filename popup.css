@@ -1,4 +1,4 @@
-/* popup.css — Gold Accents with Depth */
+/* popup.css */
 
 body {
   margin: 0;
@@ -21,21 +21,75 @@ header h1 {
   color: #222; /* neutral text */
 }
 
-.headline-metric {
-  background: rgba(255, 255, 255, 0.85);
+/* Stock Identity Card */
+.stock-card {
+  background: rgba(255, 255, 255, 0.9);
   border-radius: 12px;
-  padding: 14px;
-  font-size: 20px;
-  font-weight: bold;
-  text-align: center;
-  margin: 14px 0;
+  padding: 10px 12px;
+  margin: 12px 0;
   box-shadow: 0 3px 8px rgba(0,0,0,0.12);
-  backdrop-filter: blur(6px); /* subtle glass effect */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
-.gain { color: #1f7a44; }
-.loss { color: #a22d2d; }
+.stock-header {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 8px;
+}
 
+.stock-logo {
+  width: 36px; /* controlled size */
+  height: 36px;
+  object-fit: contain;
+  margin-right: 8px;
+  border-radius: 6px;
+}
+
+.stock-info {
+  flex-grow: 1;
+  text-align: left;
+}
+
+.stock-info h2 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: #222;
+}
+
+.stock-info p {
+  margin: 2px 0 0 0;
+  font-size: 12px;
+  color: #666;
+}
+
+.stock-details {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding-top: 6px;
+  border-top: 1px solid rgba(0,0,0,0.08);
+}
+
+.stock-details .price {
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.stock-details .change {
+  font-weight: 600;
+  font-size: 15px;
+}
+
+/* Apply gain/loss coloring for price change */
+.stock-details .gain { color: #1f7a44; }
+.stock-details .loss { color: #a22d2d; }
+
+/* Metrics section */
 .metric {
   display: flex;
   justify-content: space-between;
@@ -44,9 +98,7 @@ header h1 {
   font-size: 14px;
 }
 
-.metric:last-child {
-  border-bottom: none;
-}
+.metric:last-child { border-bottom: none; }
 
 .metric .label {
   text-transform: uppercase;
@@ -60,6 +112,7 @@ header h1 {
   color: #222;
 }
 
+/* Buttons */
 button {
   margin: 8px 4px 0 0;
   padding: 7px 14px;
@@ -83,6 +136,7 @@ button:active {
   transform: scale(0.97);
 }
 
+/* Footer */
 footer {
   font-size: 11px;
   text-align: center;
@@ -90,6 +144,46 @@ footer {
   color: #666;
   font-style: italic;
 }
+
+/* Stock Identity Card Interactivity */
+.stock-card {
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.stock-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.18);
+}
+
+.stock-details .price {
+  transition: color 0.2s ease, transform 0.15s ease;
+}
+
+.stock-details .change {
+  transition: color 0.2s ease, transform 0.15s ease;
+}
+
+.stock-details .price.gain,
+.stock-details .change.gain {
+  color: #1f7a44;
+}
+
+.stock-details .price.loss,
+.stock-details .change.loss {
+  color: #a22d2d;
+}
+
+.stock-details .price.gain:hover,
+.stock-details .change.gain:hover {
+  transform: scale(1.05);
+}
+
+.stock-details .price.loss:hover,
+.stock-details .change.loss:hover {
+  transform: scale(1.05);
+}
+
+
 
 
 
