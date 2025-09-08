@@ -10,6 +10,15 @@ document.addEventListener("DOMContentLoaded", async () => {
     const copyBtn = document.getElementById("copy-btn");
     const exportBtn = document.getElementById("export-btn");
 
+    // Format large numbers into human-readable values
+    function formatMarketCap(value) {
+        if (!value) return "N/A";
+        if (value >= 1e12) return `$${(value / 1e12).toFixed(2)}T`;
+        if (value >= 1e9)  return `$${(value / 1e9).toFixed(2)}B`;
+        if (value >= 1e6)  return `$${(value / 1e6).toFixed(2)}M`;
+        return `$${value.toFixed(2)}`;
+    }
+
     // Fetching data using API key
     async function fetchStockData(symbol) {
         try {
@@ -20,15 +29,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             const profileRes = await fetch(
                 `https://finnhub.io/api/v1/stock/profile2?symbol=${symbol}&token=${API_KEY}`
-
             );
-
             const profileData = await profileRes.json();
 
             const metricsRes = await fetch(
                 `https://finnhub.io/api/v1/stock/metric?symbol=${symbol}&metric=all&token=${API_KEY}`
             );
-
             const metricsData = await metricsRes.json();
 
             return {
@@ -36,17 +42,16 @@ document.addEventListener("DOMContentLoaded", async () => {
                 price: quoteData.c,
                 change: quoteData.dp,
                 marketCap: profileData.marketCapitalization
-                           ? `$${profileData.marketCapitalization.toFixed(2)}B`
-                           : "N/A",
-                peRatio: metricsData.metric.peTTm
-                            ? metricsData.metric.peTTm.toFixed(2)
-                            : "N/A"
+                    ? formatMarketCap(profileData.marketCapitalization)
+                    : "N/A",
+                peRatio: metricsData.metric.peTTM
+                    ? metricsData.metric.peTTM.toFixed(2)
+                    : "N/A"
             };
         } catch (error) {
-            console.error("Fetch error: ",error); 
+            console.error("Fetch error: ", error); 
             return null;
-
-}
+        }
     }
 
     // Update UI with data
@@ -64,7 +69,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     }
 
-    // copy to clipboard functionality
+    // Copy to clipboard functionality
     function copyData(data) { 
         const text = `Symbol: ${data.symbol}\nPrice: $${data.price}\nMarket Cap: ${data.marketCap}\nP/E Ratio: ${data.peRatio}\nChange: ${data.change > 0 ? "+" : ""}${data.change}%`;
         navigator.clipboard.writeText(text)
@@ -80,12 +85,12 @@ document.addEventListener("DOMContentLoaded", async () => {
         ];
 
         const csvContent = rows.map(r => r.join(",")).join("\n");
-        const blob = new Blob([csvContent], {type: "text/csv"});
+        const blob = new Blob([csvContent], { type: "text/csv" });
         const url = URL.createObjectURL(blob);
 
         const a = document.createElement("a");
         a.href = url;
-        a.download = `${data.symbol}_data.csv` ;
+        a.download = `${data.symbol}_data.csv`;
         a.click();
 
         URL.revokeObjectURL(url);
@@ -99,26 +104,25 @@ document.addEventListener("DOMContentLoaded", async () => {
         const stockData = await fetchStockData(symbol);
         if (stockData) { 
             updateUI(stockData);
-        
-        copyBtn.onclick = () => copyData(stockData);
-        exportBtn.onclick = () => exportCSV(stockData);
-            }
-        else {
+            copyBtn.onclick = () => copyData(stockData);
+            exportBtn.onclick = () => exportCSV(stockData);
+        } else {
             symbolEl.textContent = "Error";
             priceEl.textContent = "––";
             changeEl.textContent = "––";
         }
-
     }
 
+    // Default stock
     loadStock("AAPL");
 
+    // Load new stock from input
     loadBtn.onclick = () => {
         const symbol = tickerInput.value.trim().toUpperCase();
         if (symbol) {
             loadStock(symbol);
         }
-    }
+    };
 
-    console.log("API key used: ", API_KEY)
+    console.log("API key used: ", API_KEY);
 });
