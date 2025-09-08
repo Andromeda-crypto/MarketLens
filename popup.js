@@ -77,19 +77,32 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     // Fetch and wire everything up
-    const stockSymbol = "AAPL";  // You can later make this dynamic
-    const stockData = await fetchStockData(stockSymbol);
+    const tickerInput = document.getElementById("ticker-input");
+    const loadBtn = document.getElementById("load-btn");
 
-    if (stockData) {
-        updateUI(stockData);
+    async function loadStock(symbol) { 
+        const stockData = await fetchStockData(symbol);
+        if (stockData) { 
+            updateUI(stockData);
+        
+        copyBtn.onclick = () => copyData(stockData);
+        exportBtn.onclick = () => exportCSV(stockData);
+            }
+        else {
+            symbolEl.textContent = "Error";
+            priceEl.textContent = "––";
+            changeEl.textContent = "––";
+        }
 
-        // Wire buttons AFTER we have real data
-        copyBtn.addEventListener("click", () => copyData(stockData));
-        exportBtn.addEventListener("click", () => exportCSV(stockData));
-    } else {
-        symbolEl.textContent = "Error";
-        priceEl.textContent = "--";
-        changeEl.textContent = "--";
+    }
+
+    loadStock("AAPL");
+
+    loadBtn.onclick = () => {
+        const symbol = tickerInput.ariaValueMax.trim().toUpperCase();
+        if (symbol) {
+            loadStock(symbol);
+        }
     }
 
     console.log("API key used: ", API_KEY)
