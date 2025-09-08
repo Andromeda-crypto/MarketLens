@@ -13,25 +13,40 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Fetching data using API key
     async function fetchStockData(symbol) {
         try {
-            const response = await fetch(
+            const quoteRes = await fetch(
                 `https://finnhub.io/api/v1/quote?symbol=${symbol}&token=${API_KEY}`
             );
-            if (!response.ok) {
-                throw new Error("Network response was not ok");
-            }
-            const data = await response.json();
+            const quoteData = await quoteRes.json();
+
+            const profileRes = await fetch(
+                `https://finnhub.io/api/v1/stock/profile2?symbol=${symbol}&token=${API_KEY}`
+
+            );
+
+            const profileData = await profileRes.json();
+
+            const metricsRes = await fetch(
+                `https://finnhub.io/api/v1/stock/metric?symbol=${symbol}&metric=all&token=${API_KEY}`
+            );
+
+            const metricsData = await metricsRes.json();
+
             return {
                 symbol: symbol,
-                price: data.c,
-                marketCap: "N/A", // Placeholder (needs a different endpoint)
-                peRatio: "N/A",   // Placeholder (needs a different endpoint)
-                change: data.dp
+                price: quoteData.c,
+                change: quoteData.dp,
+                marketCap: profileData.marketCapitalization
+                           ? `$${profileData.marketCapitalization.toFixed(2)}B`
+                           : "N/A",
+                peRatio: metricsData.metric.peTTm
+                            ? metricsData.metric.peTTm.toFixed(2)
+                            : "N/A"
             };
-        }
-        catch(error) {
-            console.error("Fetch error: ", error);
+        } catch (error) {
+            console.error("Fetch error: ",error); 
             return null;
-        }
+
+}
     }
 
     // Update UI with data
@@ -99,7 +114,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     loadStock("AAPL");
 
     loadBtn.onclick = () => {
-        const symbol = tickerInput.ariaValueMax.trim().toUpperCase();
+        const symbol = tickerInput.value.trim().toUpperCase();
         if (symbol) {
             loadStock(symbol);
         }
