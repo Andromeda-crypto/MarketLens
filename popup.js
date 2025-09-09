@@ -57,7 +57,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         priceEl.textContent = data.price ? `$${data.price}` : "--";
         marketcapEl.textContent = data.marketCap;
         peRatioEl.textContent = data.peRatio;
-
+        changeEl.textContent = data.change !== null
+            ? `${data.change > 0 ? "+" : ""}${data.change.toFixed(2)}%`
+            : "–";
         // Stock card
         if (stockLogoEl) stockLogoEl.src = data.logo;
         if (stockTickerEl) stockTickerEl.textContent = data.symbol;
