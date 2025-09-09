@@ -37,9 +37,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 symbol: symbol,
                 price: quoteData.c || null,
                 change: quoteData.dp || null,
-                marketCap: profileData && profileData.marketCapitalization
-                           ? `$${(profileData.marketCapitalization / 1e9).toFixed(2)}B`
-                           : "N/A",
+                marketCap: profileData.marketCapitalization ? (profileData.marketCapitalization * 1e9).toLocaleString('en-US', {style : 'currency', currency: 'USD', maximumFractionDigits: 0}) : "N/A",
                 peRatio: metricsData && (metricsData.metric.peTTM || metricsData.metric.peNormalizedTTM)
                            ? (metricsData.metric.peTTM || metricsData.metric.peNormalizedTTM).toFixed(2)
                            : "N/A",
