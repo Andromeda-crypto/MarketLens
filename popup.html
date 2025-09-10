@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MarketLens</title>
     <link rel="stylesheet" href="popup.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
@@ -21,7 +23,6 @@
             <button id="load-btn">Load</button>
         </section>
 
-        
         <section id="stock-card" class="stock-card">
             <div class="stock-header">
                 <img id="company-logo" src="" alt="Company Logo" class="stock-logo">
@@ -66,12 +67,19 @@
             <button id="export-btn">Export CSV</button>
         </section>
 
+        <section class="market-trends">
+            <h3>Market Trends</h3>
+            <canvas id="market-chart" width="260" height="120"></canvas>
+        </section>
+
         <footer>
             <p>v0.1 – by Om</p>
         </footer>
     </div>
 
+   
     <script src="config.js"></script>
     <script src="popup.js"></script>
 </body>
 </html>
+
